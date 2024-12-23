@@ -5,8 +5,11 @@ import Link from "next/link";
 import icon from "@/assets/icon.png";
 import { UserButton } from "@clerk/nextjs";
 import ThemeToggle from "@/components/ThemeToggle";
+import {dark} from "@clerk/themes"
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
+  const {theme} = useTheme();
   return (
     <header className="shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 p-3">
@@ -16,7 +19,7 @@ export default function Navbar() {
             alt="logo"
             width={35}
             height={35}
-            className="rounded-full"
+            className="rounded-sm"
           />
           <span className="text-xl font-bold tracking-tight">My Resume</span>
         </Link>
@@ -24,6 +27,7 @@ export default function Navbar() {
           <ThemeToggle />
           <UserButton
             appearance={{
+              baseTheme: theme === "dark" ? dark : undefined,
               elements: {
                 avatarBox: {
                   width: 35,
