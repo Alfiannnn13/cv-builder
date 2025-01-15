@@ -13,7 +13,7 @@ export default function Page() {
       <Button asChild className="mx-auto flex w-fit gap-2">
         <Link href="/editor">
           <PlusSquare className="size-5" />
-          Buat Resume
+          Buat CV
         </Link>
       </Button>
     </main>
