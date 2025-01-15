@@ -25,12 +25,13 @@ export default function Footer({ currentStep, setCurrentStep }: FooterProps) {
             onClick={
               previousStep ? () => setCurrentStep(previousStep) : undefined
             }
+            disabled={!previousStep}
           >
             Sebelumnya
           </Button>
           <Button
             onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
-            disabled={!previousStep}
+            disabled={!nextStep}
           >
             Berikutnya
           </Button>
