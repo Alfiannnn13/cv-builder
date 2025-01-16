@@ -3,6 +3,8 @@ import GeneralInfoForm from "./forms/GeneralInfoForm";
 import PersonalInfoForm from "./forms/PersonalInfoForm";
 import WorkExperienceForm from "./forms/WorkExperienceForm";
 import EducationForm from "./forms/EducationForm";
+import SkillsForm from "./forms/SkillsForm";
+import SummaryForm from "./forms/SummaryForm";
 
 export const steps: {
   title: string;
@@ -20,6 +22,16 @@ export const steps: {
     title: "Pengalaman Kerja",
     component: WorkExperienceForm,
     key: "pengalaman-kerja",
+  },
+  {
+    title: "Keahlian",
+    component: SkillsForm,
+    key: "keahlian",
+  },
+  {
+    title: "Tentang Saya",
+    component: SummaryForm,
+    key: "Tentang Saya",
   },
   
 ];

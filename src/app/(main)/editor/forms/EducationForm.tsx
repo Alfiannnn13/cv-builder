@@ -96,23 +96,10 @@ function EducationItem({ form, index, remove }: EducationItemProps) {
       </div>
       <FormField
         control={form.control}
-        name={`educations.${index}.degree`}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Jurusan</FormLabel>
-            <FormControl>
-              <Input {...field} autoFocus />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
         name={`educations.${index}.school`}
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>Sekolah/Universitas</FormLabel>
+            <FormItem>
+            <FormLabel>Nama institusi pendidikan</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -120,6 +107,19 @@ function EducationItem({ form, index, remove }: EducationItemProps) {
           </FormItem>
         )}
       />
+        <FormField
+          control={form.control}
+          name={`educations.${index}.degree`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Gelar atau program studi (jurusan)</FormLabel>
+              <FormControl>
+                <Input {...field} autoFocus />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       <div className="grid grid-cols-2 gap-3">
         <FormField
           control={form.control}
