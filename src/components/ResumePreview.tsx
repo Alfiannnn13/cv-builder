@@ -42,6 +42,8 @@ import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import {formatDate} from "date-fns";
+import { Badge } from "./ui/badge";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -73,7 +75,9 @@ export default function ResumePreview({
       >
         <PersonalInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
+        <EducationSection resumeData={resumeData}/>
         <WorkExperienceSection resumeData={resumeData} />
+        <SkillSection resumeData={resumeData} />
       </div>
     </div>
   );
@@ -158,9 +162,69 @@ function WorkExperienceSection ({resumeData}: ResumeSectionProps) {
         <p className="text-lg font-semibold">Pengalaman Kerja</p>
         {workExperiencesNotEmpty.map((exp, index) => (
             <div className="break-inside-avoid space-y-1" key={index}>
-                <div className="flex items-center justify-between text-sm font-semibold"></div>
+                <div className="flex items-center justify-between text-m font-semibold">
+                    <span>{exp.position}</span>
+                    {exp.startDate && (
+                        <span>
+                            {formatDate(exp.startDate, "MMMM yyyy")} - {" "}
+                            {exp.endDate ? formatDate(exp.endDate, "MMMM yyyy"): "saat ini"}
+                        </span>
+                    )}
+                </div>
+                <p className="text-m font-semibold">{exp.company}</p>
+                <div className="whitespace-pre-line text-sm">{exp.description}</div>
             </div>
         ))}
+    </div>
+    </>
+}
+
+function EducationSection({resumeData}: ResumeSectionProps) {
+    const {educations} = resumeData
+
+    const educationsNotEmpty = educations?.filter(
+        (edu) => Object.values(edu).filter(Boolean).length > 0
+    );
+
+    if (!educationsNotEmpty?.length) return null; 
+
+    return <>
+     <hr className="border-2" />
+    <div className="space-y-3">
+        <p className="text-lg font-semibold">Pendidikan</p>
+        {educationsNotEmpty.map((edu, index) => (
+            <div className="break-inside-avoid space-y-1" key={index}>
+                <div className="flex items-center justify-between text-m font-semibold">
+                    <p className="text-m font-semibold">{edu.school}</p>
+                    {edu.startDate && (
+                        <span>
+                           {edu.startDate && 
+                           `${formatDate(edu.startDate, "MMMM yyyy")} ${edu.endDate ? `- ${formatDate(edu.endDate, "MMMM yyyy")}` : ""}`
+                           }
+                        </span>
+                    )}
+                </div>
+                <span>{edu.degree}</span>
+            </div>
+        ))}
+    </div>
+    </>
+
+}
+
+function SkillSection({resumeData}: ResumeSectionProps) {
+    const {skills} = resumeData;
+
+    if (!skills?.length) return null;
+    return <>
+    <hr className="border-2"/>
+    <div className="break-inside-avoid space-y-3">
+        <p className="text-lg font-semibold">Keahlian</p>
+        <div className="flex break-inside-avoid flex-wrap gap-2">
+            {skills.map((skill,index) => (
+                <Badge key={index} className="">{skill}</Badge>
+            ))}
+        </div>
     </div>
     </>
 }
