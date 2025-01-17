@@ -98,7 +98,7 @@ function EducationItem({ form, index, remove }: EducationItemProps) {
         control={form.control}
         name={`educations.${index}.school`}
         render={({ field }) => (
-            <FormItem>
+          <FormItem>
             <FormLabel>Nama institusi pendidikan</FormLabel>
             <FormControl>
               <Input {...field} />
@@ -107,31 +107,32 @@ function EducationItem({ form, index, remove }: EducationItemProps) {
           </FormItem>
         )}
       />
-        <FormField
-          control={form.control}
-          name={`educations.${index}.degree`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Gelar atau program studi (jurusan)</FormLabel>
-              <FormControl>
-                <Input {...field} autoFocus />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <FormField
+        control={form.control}
+        name={`educations.${index}.degree`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Gelar atau program studi (jurusan)</FormLabel>
+            <FormControl>
+              <Input {...field} autoFocus />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <div className="grid grid-cols-2 gap-3">
         <FormField
           control={form.control}
           name={`educations.${index}.startDate`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Masuk Tanggal</FormLabel>
+              <FormLabel>Tahun Masuk</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   type="date"
-                  value={field.value?.slice(0, 1)}
+                  value={field.value || ""} // Pastikan ada nilai default
+                  onChange={(e) => field.onChange(e.target.value)} // Update nilai saat diubah
                 />
               </FormControl>
               <FormMessage />
@@ -143,12 +144,13 @@ function EducationItem({ form, index, remove }: EducationItemProps) {
           name={`educations.${index}.endDate`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Lulus Tanggal</FormLabel>
+              <FormLabel>Tahun Lulus</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   type="date"
-                  value={field.value?.slice(0, 1)}
+                  value={field.value || ""} // Pastikan ada nilai default
+                  onChange={(e) => field.onChange(e.target.value)} // Update nilai saat diubah
                 />
               </FormControl>
               <FormMessage />

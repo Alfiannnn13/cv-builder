@@ -125,7 +125,7 @@ export default function PersonalInfoForm({
               name="country"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Kode Pos</FormLabel>
+                  <FormLabel>Provinsi</FormLabel>
                   <FormControl>
                     <Input {...field} type="tel" />
                   </FormControl>

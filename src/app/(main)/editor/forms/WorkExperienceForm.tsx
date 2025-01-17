@@ -125,40 +125,42 @@ function WorkExperienceItem({ form, index, remove }: WorkExperienceItemProps) {
         )}
       />
       <div className="grid grid-cols-2 gap-3">
-        <FormField
-          control={form.control}
-          name={`workExperiences.${index}.startDate`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Mulai Tanggal</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="date"
-                  value={field.value?.slice(0, 1)}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+      <FormField
+  control={form.control}
+  name={`workExperiences.${index}.startDate`}
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Mulai Tanggal</FormLabel>
+      <FormControl>
+        <Input
+          {...field}
+          type="date"
+          value={field.value || ''} // Pastikan ada nilai default
+          onChange={(e) => field.onChange(e.target.value)} // Update nilai saat diubah
         />
-        <FormField
-          control={form.control}
-          name={`workExperiences.${index}.endDate`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Berakhir Tanggal</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="date"
-                  value={field.value?.slice(0, 1)}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name={`workExperiences.${index}.endDate`}
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Berakhir Tanggal</FormLabel>
+      <FormControl>
+        <Input
+          {...field}
+          type="date"
+          value={field.value || ''} // Pastikan ada nilai default
+          onChange={(e) => field.onChange(e.target.value)} // Update nilai saat diubah
         />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
       </div>
       <FormDescription>
         Kosongkan <span className="font-semibold">tanggal akhir</span> jika Anda
