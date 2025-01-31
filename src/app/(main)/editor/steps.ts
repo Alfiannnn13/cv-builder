@@ -5,6 +5,7 @@ import WorkExperienceForm from "./forms/WorkExperienceForm";
 import EducationForm from "./forms/EducationForm";
 import SkillsForm from "./forms/SkillsForm";
 import SummaryForm from "./forms/SummaryForm";
+import SertifikasiForm from "./forms/SertifikasiForm";
 
 export const steps: {
   title: string;
@@ -27,6 +28,11 @@ export const steps: {
     title: "Keahlian",
     component: SkillsForm,
     key: "keahlian",
+  },
+  {
+    title: "Sertifikasi",
+    component: SertifikasiForm,
+    key: "sertifikasi",
   },
   {
     title: "Tentang Saya",

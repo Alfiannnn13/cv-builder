@@ -36,6 +36,7 @@ model Resume {
   workExperiences WorkExperience[]
   educations Education[]
   skills String[]
+  sertifikasi String[]
 
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
@@ -75,3 +76,4 @@ model Education {
   
   @@map("education")
 }
+

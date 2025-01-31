@@ -69,6 +69,12 @@ export const skillsSchema = z.object({
 
 export type SkillsValues = z.infer<typeof skillsSchema>;
 
+export const sertifikasiSchema = z.object({
+  sertifikasi: z.array(z.string().trim()).optional(),
+});
+
+export type SertifikasiValues = z.infer<typeof sertifikasiSchema>;
+
 export const summarySchema = z.object({
   summary: optionalString,
 });
@@ -81,7 +87,10 @@ export const resumeSchema = z.object({
   ...workExperienceSchema.shape,
   ...educationSchema.shape,
   ...skillsSchema.shape,
+  ...sertifikasiSchema.shape,
   ...summarySchema.shape,
+  colorHex: optionalString,
+  borderStyle: optionalString,
 });
 
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
