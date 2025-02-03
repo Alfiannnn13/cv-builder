@@ -2,18 +2,21 @@ import ResumePreview from "@/components/ResumePreview";
 import { ResumeValues } from "@/lib/validation";
 import ColorPicker from "./ColorPicker";
 import BorderStyleButton from "./BorderStyleButton";
+import { cn } from "@/lib/utils";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
   setResumeData: (data: ResumeValues) => void;
+  className? :string
 }
 
 export default function ResumePreviewSection({
   resumeData,
   setResumeData,
+  className
 }: ResumePreviewProps) {
   return (
-    <div className="group relative hidden w-1/2 md:flex">
+    <div className={cn("group relative hidden md:w-1/2 md:flex w-full", className)}>
       <div className="opacity-50 xl:opacity-100 group-hover:opacity-10 absolute left-1 top-1 flex flex-none flex-col gap-3 lg:left-3 lg:top-3">
         <ColorPicker
           color={resumeData.colorHex}
