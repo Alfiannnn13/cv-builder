@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { formatDate } from "date-fns";
 import { Badge } from "./ui/badge";
+import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -81,15 +82,35 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           height={100}
           alt="Author Photo"
           className="aspect-auto object-cover"
+          style={{
+            borderRadius:
+              borderStyle === BorderStyles.SQUARE
+                ? "0px"
+                : borderStyle === BorderStyles.CIRCLE
+                  ? "9999px"
+                  : "10%",
+          }}
         />
       )}
 
       <div className="space-y-2.5">
         <div className="space-y-1">
-          <p className="text-2xl font-bold">
+          <p
+            className="text-2xl font-bold"
+            style={{
+              color: colorHex,
+            }}
+          >
             {firstName} {lastName}
           </p>
-          <p className="font-medium">{jobTitle}</p>
+          <p
+            className="font-medium"
+            style={{
+              color: colorHex,
+            }}
+          >
+            {jobTitle}
+          </p>
         </div>
         <p className="font-medium">
           {city}
@@ -104,15 +125,27 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
 }
 
 function SummarySection({ resumeData }: ResumeSectionProps) {
-  const { summary } = resumeData;
+  const { summary, colorHex } = resumeData;
 
   if (!summary) return null;
 
   return (
     <>
-      <hr className="border-2" />
+      <hr
+        className="border-2"
+        style={{
+          borderColor: colorHex,
+        }}
+      />
       <div className="break-inside-avoid space-y-3">
-        <p className="text-lg font-semibold">Tentang Saya</p>
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Tentang Saya
+        </p>
         <div className="whitespace-pre-line text-sm">{summary}</div>
       </div>
     </>
@@ -120,7 +153,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 }
 
 function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
-  const { workExperiences } = resumeData;
+  const { workExperiences, colorHex } = resumeData;
 
   const workExperiencesNotEmpty = workExperiences?.filter(
     (exp) => Object.values(exp).filter(Boolean).length > 0,
@@ -130,18 +163,41 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="border-2" />
+      <hr
+        className="border-2"
+        style={{
+          borderColor: colorHex,
+        }}
+      />
       <div className="space-y-3">
-        <p className="text-lg font-semibold">Pengalaman Kerja</p>
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Pengalaman Kerja
+        </p>
         {workExperiencesNotEmpty.map((exp, index) => (
           <div className="break-inside-avoid space-y-1" key={index}>
             <div className="text-m flex items-center justify-between">
-              <span className="font-semibold">{exp.position}</span>
+              <span
+                className="font-semibold"
+                style={{
+                  color: colorHex,
+                }}
+              >
+                {exp.position}
+              </span>
               {exp.startDate && (
-                <span>
-                  {formatDate(exp.startDate, "MMMM yyyy")} -{" "}
+                <span
+                  style={{
+                    color: colorHex,
+                  }}
+                >
+                  {formatDate(exp.startDate, "MMM yyyy")} -{" "}
                   {exp.endDate
-                    ? formatDate(exp.endDate, "MMMM yyyy")
+                    ? formatDate(exp.endDate, "MMM yyyy")
                     : "saat ini"}
                 </span>
               )}
@@ -156,7 +212,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 }
 
 function EducationSection({ resumeData }: ResumeSectionProps) {
-  const { educations } = resumeData;
+  const { educations, colorHex } = resumeData;
 
   const educationsNotEmpty = educations?.filter(
     (edu) => Object.values(edu).filter(Boolean).length > 0,
@@ -166,17 +222,40 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <hr className="border-2" />
+      <hr
+        className="border-2"
+        style={{
+          borderColor: colorHex,
+        }}
+      />
       <div className="space-y-3">
-        <p className="text-lg font-semibold">Pendidikan</p>
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Pendidikan
+        </p>
         {educationsNotEmpty.map((edu, index) => (
           <div className="break-inside-avoid space-y-1" key={index}>
             <div className="text-m flex items-center justify-between">
-              <p className="text-m font-semibold">{edu.school}</p>
+              <p
+                className="text-m font-semibold"
+                style={{
+                  color: colorHex,
+                }}
+              >
+                {edu.school}
+              </p>
               {edu.startDate && (
-                <span>
+                <span
+                  style={{
+                    color: colorHex,
+                  }}
+                >
                   {edu.startDate &&
-                    `${formatDate(edu.startDate, "MMMM yyyy")} ${edu.endDate ? `- ${formatDate(edu.endDate, "MMMM yyyy")}` : ""}`}
+                    `${formatDate(edu.startDate, "MMM yyyy")} ${edu.endDate ? `- ${formatDate(edu.endDate, "MMM yyyy")}` : ""}`}
                 </span>
               )}
             </div>
@@ -189,19 +268,40 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 }
 
 function SkillSection({ resumeData }: ResumeSectionProps) {
-  const { skills } = resumeData;
+  const { skills, colorHex, borderStyle } = resumeData;
 
   if (!skills?.length) return null;
   return (
     <>
-      <hr className="border-2" />
+      <hr
+        className="border-2"
+        style={{
+          borderColor: colorHex,
+          borderRadius:
+            borderStyle === BorderStyles.SQUARE
+              ? "0px"
+              : borderStyle === BorderStyles.CIRCLE
+                ? "9999px"
+                : "8px",
+        }}
+      />
       <div className="break-inside-avoid space-y-3">
-        <p className="text-lg font-semibold">Keahlian</p>
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Keahlian
+        </p>
         <div className="flex break-inside-avoid flex-wrap gap-2">
           {skills.map((skill, index) => (
             <Badge
               key={index}
               className="rounded-md bg-black text-white hover:bg-black"
+              style={{
+                backgroundColor: colorHex,
+              }}
             >
               {skill}
             </Badge>
@@ -212,15 +312,27 @@ function SkillSection({ resumeData }: ResumeSectionProps) {
   );
 }
 function SertifikasiSection({ resumeData }: ResumeSectionProps) {
-  const { sertifikasi } = resumeData;
+  const { sertifikasi, colorHex } = resumeData;
 
   if (!sertifikasi?.length) return null;
 
   return (
     <>
-      <hr className="border-2" />
+      <hr
+        className="border-2"
+        style={{
+          borderColor: colorHex,
+        }}
+      />
       <div className="break-inside-avoid space-y-3">
-        <p className="text-lg font-semibold">Sertifikasi</p>
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Sertifikasi
+        </p>
         <ul className="list-disc space-y-1 pl-5">
           {sertifikasi.map((sertifikat, index) => (
             <li key={index} className="text-sm leading-relaxed">
