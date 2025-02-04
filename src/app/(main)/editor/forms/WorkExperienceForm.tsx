@@ -34,6 +34,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { cn } from "@/lib/utils";
 
 export default function WorkExperienceForm({
   resumeData,
@@ -157,7 +158,7 @@ function WorkExperienceItem({
   }= useSortable({ id });
 
   return (
-    <div className="space-y-3 rounded-md border bg-background p-3"
+    <div className={cn("space-y-3 rounded-md border bg-background p-3", isDragging && "shadow-xl z-50 cursor-grab relative")}
     ref={setNodeRef}
     style={{
       transform:CSS.Transform.toString(transform),
@@ -166,7 +167,7 @@ function WorkExperienceItem({
     >
       <div className="flex justify-between gap-2">
         <span className="font-semibold">Pengelaman Kerja {index + 1}</span>
-        <GripHorizontal className="size-5 cursor-grab text-muted-foreground" 
+        <GripHorizontal className="size-5 cursor-grab text-muted-foreground focus:outline-none" 
           {...attributes}
           {...listeners}
         />
