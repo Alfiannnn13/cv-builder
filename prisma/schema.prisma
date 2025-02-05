@@ -49,12 +49,13 @@ model WorkExperience {
 
   position  String?
   company   String?
-  startDate String?
-  endDate   String?
+  startDate DateTime?
+  endDate   DateTime?
   description String?
 
   resumeId String
   resume   Resume @relation(fields: [resumeId], references: [id])
+
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 
@@ -66,8 +67,8 @@ model Education {
 
   degree String?
   school String?
-  startDate String?
-  endDate String?
+  startDate DateTime?
+  endDate DateTime?
 
   resumeId String
   resume   Resume @relation(fields: [resumeId], references: [id])
