@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import ResumeEditor from "./ResumeEditor";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
+import { resumeDataInclude } from "@/lib/types";
 
 interface pageProps {
     searchParams: Promise<{resumeId?:string}>
@@ -23,8 +24,9 @@ export default async function Page({searchParams}:pageProps) {
     const resumeToEdit = resumeId
     ? await prisma.resume.findUnique({
         where:{id: resumeId, userId},
+        include:resumeDataInclude
     })
     :null;
 
-    return <ResumeEditor/>
+    return <ResumeEditor resumeToEdit={resumeToEdit}/>;
 }

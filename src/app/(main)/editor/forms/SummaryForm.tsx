@@ -33,7 +33,7 @@ export default function SummaryForm({
             <div className="space-y-1.5 text-center">
                 <h2 className="font-semibold text-2xl">Tentang Saya</h2>
                 <p className="text-sm text-muted-foreground">
-                    Tulis pengenalan singkat tentang diri Anda untuk CV, atau biarkan AI membuatkannya berdasarkan data yang telah Anda masukkan.
+                    Tulis pengenalan singkat tentang diri Anda untuk CV.
                 </p>
             </div>
             <Form {...form}>
