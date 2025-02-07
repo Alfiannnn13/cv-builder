@@ -145,7 +145,7 @@ export default function PersonalInfoForm({
                 <FormItem>
                   <FormLabel>Provinsi</FormLabel>
                   <FormControl>
-                    <Input {...field} type="tel" />
+                    <Input {...field}/>
                   </FormControl>
                 </FormItem>
               )}

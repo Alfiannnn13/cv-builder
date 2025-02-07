@@ -8,7 +8,7 @@ import Link from "next/link";
 import ResumeItem from "./ResumeItem";
 
 export const metadata: Metadata = {
-  title: "CV Anda",
+  title: "CV ATS",
 };
 
 export default async function Page() {
