@@ -8,7 +8,7 @@ import Link from "next/link";
 import ResumeItem from "./ResumeItem";
 
 export const metadata: Metadata = {
-  title: "CV ATS",
+  title: "Buat CV Online Gratis",
 };
 
 export default async function Page() {

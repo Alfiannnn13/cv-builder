@@ -1,10 +1,25 @@
+import CallToAction from "@/sections/CallToAction";
+import Faqs from "@/sections/Faqs";
+import Features from "@/sections/Features";
+import Footer from "@/sections/Footer";
+import Hero from "@/sections/Hero";
+import Introduction from "@/sections/Introduction";
+import LogoTicker from "@/sections/LogoTicker";
 import Navbar from "@/sections/Navbar";
-
 
 export default function Home() {
   return (
     <>
-      <Navbar/>
+      <div className="bg-black text-white">
+        <Navbar />
+        <Hero />
+        <LogoTicker />
+        <Introduction />
+        <Features/>
+        <Faqs/>
+        <CallToAction/>
+        <Footer/>
+      </div>
     </>
   );
 }

@@ -1,12 +1,12 @@
 import Image from "next/image";
 import logoImage from "@/assets/icon.png";
 import Button from "@/components/Button";
+import Link from "next/link";
 
 const navLinks = [
-  { label: "Home", href: "#" },
-  { label: "Features", href: "#features" },
-  { label: "Integrations", href: "#integrations" },
-  { label: "FAQs", href: "#faqs" },
+  { label: "Beranda", href: "#" },
+  { label: "Fitur", href: "#features" },
+  { label: "FAQ", href: "#faqs" },
 ];
 
 export default function Navbar() {
@@ -47,7 +47,9 @@ export default function Navbar() {
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
-            <Button variant="primary" className="hidden md:inline-flex items-center">Masuk</Button>
+            <Link href="/resumes">
+              <Button variant="primary" className="hidden md:inline-flex items-center font-medium">Masuk</Button>
+            </Link>
           </div>
         </div>
       </div>

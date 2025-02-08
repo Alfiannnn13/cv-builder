@@ -11,11 +11,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s - My CV",
-    absolute: "My CV",
+    template: "%s - CVExpress",
+    absolute: "CVExpress",
   },
   description:
-    "Buat CV ATS friendly gartis dengan mudah dan cepat di My CV. Sesuaikan pengalaman, keterampilan, dan pendidikan Anda untuk membuat CV yang siap melamar pekerjaan.",
+    "Buat CV ATS friendly gartis dengan mudah dan cepat di CVExpress. Sesuaikan pengalaman, keterampilan, dan pendidikan Anda untuk membuat CV yang siap melamar pekerjaan.",
 };
 
 export default function RootLayout({
