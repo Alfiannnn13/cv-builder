@@ -21,7 +21,7 @@ export default function Navbar() {
             height={35}
             className="rounded-sm"
           />
-          <span className="text-xl font-bold tracking-tight">My CV</span>
+          <span className="text-xl font-bold tracking-tight dark:text-lime-400">CvExpress</span>
         </Link>
         <div className="flex items-center gap-3">
           <ThemeToggle />

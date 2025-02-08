@@ -10,7 +10,7 @@ import Navbar from "@/sections/Navbar";
 export default function Home() {
   return (
     <>
-      <div className="bg-black text-white">
+      <div className="bg-black text-white scroll scroll-smooth">
         <Navbar />
         <Hero />
         <LogoTicker />
