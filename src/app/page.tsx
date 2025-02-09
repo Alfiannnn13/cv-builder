@@ -13,6 +13,7 @@ export default function Home() {
       <div className="bg-black text-white scroll scroll-smooth">
         <Navbar />
         <Hero />
+        <LogoTicker />
         <Introduction />
         <Features/>
         <Faqs/>

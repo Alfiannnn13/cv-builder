@@ -27,7 +27,7 @@ export default function Introduction() {
   return (
     <section className="py-28">
       <div className="container">
-        <div className="sticky top-20">
+        <div className="sticky top-20 md:top-28">
           <div className="flex justify-center">
             <Tag>Introducing CvExpress</Tag>
           </div>
