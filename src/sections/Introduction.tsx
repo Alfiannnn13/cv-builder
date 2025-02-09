@@ -1,6 +1,6 @@
 import Tag from "@/components/tag";
 
-const text = `Banyak layanan pembuatan CV berbayar di luar sana, tapi di sini kamu bisa membuat CV ATS-friendly secara gratis. Cepat, mudah, dan langsung siap digunakan untuk melamar kerja.`;
+const text = ` Banyak layanan pembuatan CV berbayar di luar sana, tapi di sini kamu bisa membuat CV ATS-friendly secara gratis. Cepat, mudah, dan langsung siap digunakan untuk melamar kerja.`;
 
 export default function Introduction() {
   return (
