@@ -23,13 +23,14 @@ export default function Navbar() {
           <div className="rounded-[27px] border border-white/15 bg-neutral-950/70 backdrop-blur md:rounded-full">
             <div className="grid grid-cols-2 items-center p-2 px-4 md:pr-2 lg:grid-cols-3">
               <div>
-                <Image
+                {/* <Image
                   src={logoImage}
                   alt="logo"
                   width={35}
                   height={35}
                   className="h-9 w-auto rounded-sm md:h-auto"
-                />
+                /> */}
+                <h1 className="text-lime-400 font-semibold text-lg">CVExpress</h1>
               </div>
               <div className="hidden items-center justify-center lg:flex">
                 <nav className="flex gap-6 font-medium">
