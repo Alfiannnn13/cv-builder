@@ -34,7 +34,7 @@ export default function LogoTicker() {
             x: "-50%",
           }}
           transition={{
-            duration: 10,
+            duration: 20,
             ease: 'linear',
             repeat: Infinity
           }}
