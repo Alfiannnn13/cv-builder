@@ -160,9 +160,9 @@ function DeleteConfirmationDialog({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="destructive" onClick={handleDelete}>
-            Hapus
-          </Button>
+        <Button variant="destructive" onClick={handleDelete} disabled={isPending}>
+  {isPending ? "Menghapus..." : "Hapus"}
+</Button>
           <Button variant="secondary" onClick={() => onOpenChange(false)}>
             Batal
           </Button>
