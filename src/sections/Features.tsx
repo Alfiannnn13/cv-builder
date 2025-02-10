@@ -21,7 +21,7 @@ export default function Features() {
         <div className="flex justify-center">
           <Tag>Features</Tag>
         </div>
-        <h2 className="mt-6 text-center text-6xl font-medium max-w-2xl mx-auto">
+        <h2 className="mx-auto mt-6 max-w-2xl text-center text-6xl font-medium">
           Buat CV ATS lebih mudah dengan{" "}
           <span className="text-lime-400">CVExpress</span>
         </h2>
@@ -29,7 +29,7 @@ export default function Features() {
           <FeaturedCard
             title="Buat CV ATS-Friendly dengan hitungan menit"
             description="Tidak perlu berjam-jam menyusun CV! Gunakan CVExpress untuk membuat CV profesional dengan cepat, mudah, dan tanpa hambatan."
-            className="md:col-span-2  lg:col-span-1"
+            className="md:col-span-2 lg:col-span-1"
           >
             <div className="flex w-full items-center justify-center">
               <div className="w-full max-w-lg">
@@ -45,14 +45,24 @@ export default function Features() {
           <FeaturedCard
             title="Di CVExpress, semua fitur
                 bisa kamu gunakan gratis selamanya."
-            description=" Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Tenetur ea suscipit animi"
-            className="md:col-span-2 lg:col-span-1"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, autem!<"
+            className="md:col-span-2 lg:col-span-1 group"
           >
+            
             <div className="flex aspect-video items-center justify-center">
-              <p className="text-center text-4xl font-extrabold text-white/20">
+              <p className="text-center text-4xl font-extrabold text-white/20 group-hover:text-white/10 transition">
                 Lupakan penyedia pembuatan CV{" "}
-                <span className="text-lime-400">berbayar</span>{" "}
+                <span className="text-lime-400 relative">
+                  <span>berbayar</span>
+                  <video
+                    src="/gif-incredible.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute bottom-full left-1/2 -translate-x-1/2 rounded-2xl shadow-xl opacity-0 group-hover:opacity-100 duration-100 transition pointer-events-none"
+                  />
+                </span>{" "}
               </p>
             </div>
           </FeaturedCard>
@@ -77,7 +87,7 @@ export default function Features() {
           {features.map((feature) => (
             <div
               key={feature}
-              className="inline-flex items-center gap-3 rounded-2xl border-white/10 bg-neutral-900 px-3 md:px-5 md:py-2 py-1.5"
+              className="inline-flex items-center gap-3 rounded-2xl border-white/10 bg-neutral-900 px-3 py-1.5 md:px-5 md:py-2"
             >
               <span className="inline-flex size-5 items-center justify-center rounded-full bg-lime-400 text-xl text-neutral-950">
                 &#10038;
