@@ -29,7 +29,7 @@ export default function ResumePreview({
         "aspect-[210/297] h-fit w-full bg-white text-black",
         className,
       )}
-      ref={containerRef}
+      ref={contentRef}
     >
       <div
         className={cn("space-y-6 p-6", !width && "invisible")}
