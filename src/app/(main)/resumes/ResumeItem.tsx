@@ -31,7 +31,7 @@ interface ResumeItemProps {
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
-  const contentRef = useRef<HTMLDivElement>(null!);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const reactToPrintFn = useReactToPrint({
     contentRef,
@@ -65,7 +65,8 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
             contentRef={contentRef}
-            className="overflow-hidden shadow-md transition-shadow group-hover:shadow-lg"   />
+            className="overflow-hidden shadow-md transition-shadow group-hover:shadow-lg"
+          />
           <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-white to-transparent"></div>
         </Link>
       </div>
@@ -160,9 +161,13 @@ function DeleteConfirmationDialog({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-        <Button variant="destructive" onClick={handleDelete} disabled={isPending}>
-  {isPending ? "Menghapus..." : "Hapus"}
-</Button>
+          <Button
+            variant="destructive"
+            onClick={handleDelete}
+            disabled={isPending}
+          >
+            {isPending ? "Menghapus..." : "Hapus"}
+          </Button>
           <Button variant="secondary" onClick={() => onOpenChange(false)}>
             Batal
           </Button>
