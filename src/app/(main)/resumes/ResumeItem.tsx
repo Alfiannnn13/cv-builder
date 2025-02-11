@@ -14,7 +14,7 @@ import { mapToResumeValues } from "@/lib/utils";
 import { formatDate } from "date-fns";
 import { MoreVertical, Printer, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useRef, useState, useTransition } from "react";
+import { RefObject, useRef, useState, useTransition } from "react";
 import { deleteResume } from "./action";
 import {
   Dialog,
@@ -31,10 +31,10 @@ interface ResumeItemProps {
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
-  const contentRef = useRef<HTMLDivElement>(null!);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   const reactToPrintFn = useReactToPrint({
-    contentRef,
+    contentRef: contentRef as unknown as RefObject<Element>,
     documentTitle: resume.title || "CV",
   });
 
