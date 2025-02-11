@@ -31,10 +31,10 @@ interface ResumeItemProps {
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null!);
 
   const reactToPrintFn = useReactToPrint({
-    contentRef: contentRef as unknown as RefObject<Element>,
+    contentRef,
     documentTitle: resume.title || "CV",
     
   });
