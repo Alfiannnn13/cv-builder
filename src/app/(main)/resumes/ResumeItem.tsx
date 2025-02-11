@@ -36,6 +36,12 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
   const reactToPrintFn = useReactToPrint({
     contentRef: contentRef as unknown as RefObject<Element>,
     documentTitle: resume.title || "CV",
+    print: (targetIframe) => {
+      // 🔥 Paksa print di dalam iframe
+      targetIframe.contentWindow?.focus();
+      targetIframe.contentWindow?.print();
+      return Promise.resolve();
+    }
   });
 
   const wasUpdated = resume.updateAt !== resume.createdAt;
