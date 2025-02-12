@@ -83,9 +83,7 @@ export default function Hero() {
         </p>
         <div className="mt-6 flex justify-center">
           <Link href="/resumes">
-            <Button variant="primary" className="font-medium">
-              Coba Sekarang
-            </Button>
+          <button onClick={() => window.print()}>Print Test</button>
           </Link>
         </div>
       </div>
