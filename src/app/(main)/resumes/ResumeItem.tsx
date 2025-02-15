@@ -1,196 +1,7 @@
-// "use client";
-
-// import ResumePreview from "@/components/ResumePreview";
-// import { Button } from "@/components/ui/button";
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
-// import { useToast } from "@/hooks/use-toast";
-// import { ResumeServerData } from "@/lib/types";
-// import { mapToResumeValues } from "@/lib/utils";
-// import { formatDate } from "date-fns";
-// import { MoreVertical, Printer, Trash2 } from "lucide-react";
-// import Link from "next/link";
-// import { RefObject, useRef, useState, useTransition } from "react";
-// import { deleteResume } from "./action";
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogDescription,
-//   DialogFooter,
-//   DialogHeader,
-//   DialogTitle,
-// } from "@/components/ui/dialog";
-// import { useReactToPrint } from "react-to-print";
-
-// interface ResumeItemProps {
-//   resume: ResumeServerData;
-// }
-
-// export default function ResumeItem({ resume }: ResumeItemProps) {
-//   const contentRef = useRef<HTMLDivElement>(null!);
-
-//   const reactToPrintFn = useReactToPrint({
-//     contentRef,
-//     documentTitle: resume.title || "CV",
-    
-//   });
-
-//   const wasUpdated = resume.updateAt !== resume.createdAt;
-
-//   return (
-//     <div className="group relative rounded-lg border border-transparent bg-secondary transition-colors hover:border-border">
-//       <div className="space-y-3">
-//         <Link
-//           href={`/editor?resumeId=${resume.id}`}
-//           className="inline-block w-full text-center"
-//         >
-//           <p className="line-clamp-1 font-semibold">
-//             {resume.title || "No Title"}
-//           </p>
-//           {resume.description && (
-//             <p className="line-clamp-2 text-sm">{resume.description}</p>
-//           )}
-//           <p className="text-xs text-muted-foreground">
-//             {wasUpdated ? "diperbarui" : "dibuat"} tanggal{" "}
-//             {formatDate(resume.updateAt, "MMM d yyyy h:mm a")}
-//           </p>
-//         </Link>
-//         <Link
-//           href={`/editor?resumeId=${resume.id}`}
-//           className="relative inline-block w-full"
-//         >
-//           <ResumePreview
-//             resumeData={mapToResumeValues(resume)}
-//             contentRef={contentRef}
-//             className="overflow-hidden shadow-md transition-shadow group-hover:shadow-lg"
-//           />
-//           <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-white to-transparent"></div>
-//         </Link>
-//       </div>
-//       <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
-//     </div>
-//   );
-// }
-
-// interface MoreMenuProps {
-//   resumeId: string;
-//   onPrintClick: () => void;
-// }
-
-// function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
-//   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-
-//   return (
-//     <>
-//       <DropdownMenu>
-//         <DropdownMenuTrigger asChild>
-//           <Button
-//             variant="ghost"
-//             size="icon"
-//             className="absolute right-0.5 top-0.5"
-//           >
-//             <MoreVertical className="size-4" />
-//           </Button>
-//         </DropdownMenuTrigger>
-//         <DropdownMenuContent>
-//           <DropdownMenuItem
-//             className="flex items-center gap-2"
-//             onClick={() => setShowDeleteConfirmation(true)}
-//           >
-//             <Trash2 className="size-4" /> Hapus
-//           </DropdownMenuItem>
-//           <DropdownMenuItem
-//             className="flex items-center gap-2"
-//             onClick={onPrintClick}
-//           >
-//             {" "}
-//             <Printer className="size-4" /> Download
-//           </DropdownMenuItem>
-//         </DropdownMenuContent>
-//       </DropdownMenu>
-//       <DeleteConfirmationDialog
-//         resumeId={resumeId}
-//         open={showDeleteConfirmation}
-//         onOpenChange={setShowDeleteConfirmation}
-//       />
-//     </>
-//   );
-// }
-
-// interface DeleteConfirmationDialogProps {
-//   resumeId: string;
-//   open: boolean;
-//   onOpenChange: (open: boolean) => void;
-// }
-
-// function DeleteConfirmationDialog({
-//   resumeId,
-//   open,
-//   onOpenChange,
-// }: DeleteConfirmationDialogProps) {
-//   const { toast } = useToast();
-
-//   const [isPending, startTransition] = useTransition();
-
-//   async function handleDelete() {
-//     startTransition(async () => {
-//       try {
-//         await deleteResume(resumeId);
-//         onOpenChange(false);
-//       } catch (error) {
-//         console.error(error);
-//         toast({
-//           variant: "destructive",
-//           description: "Gagal,Coba lagi",
-//         });
-//       }
-//     });
-//   }
-
-//   return (
-//     <Dialog open={open} onOpenChange={onOpenChange}>
-//       <DialogContent>
-//         <DialogHeader>
-//           <DialogTitle>Hapus CV?</DialogTitle>
-//           <DialogDescription>
-//             Aksi ini akan menghapus cv secara permanen dan tidak bisa di
-//             kembalikan
-//           </DialogDescription>
-//         </DialogHeader>
-//         <DialogFooter>
-//           <Button
-//             variant="destructive"
-//             onClick={handleDelete}
-//             disabled={isPending}
-//           >
-//             {isPending ? "Menghapus..." : "Hapus"}
-//           </Button>
-//           <Button variant="secondary" onClick={() => onOpenChange(false)}>
-//             Batal
-//           </Button>
-//         </DialogFooter>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// }
-
-
 "use client";
 
 import ResumePreview from "@/components/ResumePreview";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -203,10 +14,39 @@ import { mapToResumeValues } from "@/lib/utils";
 import { formatDate } from "date-fns";
 import { MoreVertical, Printer, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useRef, useState, useTransition } from "react";
-import { useReactToPrint } from "react-to-print";
+import { RefObject, useRef, useState, useTransition } from "react";
 import { deleteResume } from "./action";
-import LoadingButton from "@/components/LoadingButton";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+
+import { useReactToPrint } from "react-to-print";
+
+const handleDownloadPDF = async (contentRef: RefObject<HTMLDivElement>) => {
+  if (!contentRef.current) return;
+
+  try {
+    const canvas = await html2canvas(contentRef.current, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgWidth = 210;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    pdf.save("resume.pdf");
+  } catch (error) {
+    console.error("Gagal membuat PDF:", error);
+  }
+};
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -217,27 +57,27 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
 
   const reactToPrintFn = useReactToPrint({
     contentRef,
-    documentTitle: resume.title || "Resume",
+    documentTitle: resume.title || "CV",
   });
 
   const wasUpdated = resume.updateAt !== resume.createdAt;
 
   return (
-    <div className="group relative rounded-lg border border-transparent bg-secondary p-3 transition-colors hover:border-border">
+    <div className="group relative rounded-lg border border-transparent bg-secondary transition-colors hover:border-border">
       <div className="space-y-3">
         <Link
           href={`/editor?resumeId=${resume.id}`}
           className="inline-block w-full text-center"
         >
           <p className="line-clamp-1 font-semibold">
-            {resume.title || "No title"}
+            {resume.title || "No Title"}
           </p>
           {resume.description && (
             <p className="line-clamp-2 text-sm">{resume.description}</p>
           )}
           <p className="text-xs text-muted-foreground">
-            {wasUpdated ? "Updated" : "Created"} on{" "}
-            {formatDate(resume.updateAt, "MMM d, yyyy h:mm a")}
+            {wasUpdated ? "diperbarui" : "dibuat"} tanggal{" "}
+            {formatDate(resume.updateAt, "MMM d yyyy h:mm a")}
           </p>
         </Link>
         <Link
@@ -247,22 +87,30 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
             contentRef={contentRef}
-            className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
+            className="overflow-hidden shadow-md transition-shadow group-hover:shadow-lg"
           />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-white to-transparent"></div>
         </Link>
       </div>
-      <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
+      <MoreMenu
+        resumeId={resume.id}
+        onDownloadClick={() => handleDownloadPDF(contentRef)}
+      />
     </div>
   );
 }
 
+// interface MoreMenuProps {
+//   resumeId: string;
+//   onPrintClick: () => void;
+// }
+
 interface MoreMenuProps {
   resumeId: string;
-  onPrintClick: () => void;
+  onDownloadClick: () => void;
 }
 
-function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
+function MoreMenu({ resumeId, onDownloadClick }: MoreMenuProps) {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   return (
@@ -272,7 +120,7 @@ function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-0.5 top-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+            className="absolute right-0.5 top-0.5"
           >
             <MoreVertical className="size-4" />
           </Button>
@@ -282,15 +130,13 @@ function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
             className="flex items-center gap-2"
             onClick={() => setShowDeleteConfirmation(true)}
           >
-            <Trash2 className="size-4" />
-            Delete
+            <Trash2 className="size-4" /> Hapus
           </DropdownMenuItem>
           <DropdownMenuItem
             className="flex items-center gap-2"
-            onClick={onPrintClick}
+            onClick={onDownloadClick}
           >
-            <Printer className="size-4" />
-            Print
+            <Printer className="size-4" /> Download
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -327,7 +173,7 @@ function DeleteConfirmationDialog({
         console.error(error);
         toast({
           variant: "destructive",
-          description: "Something went wrong. Please try again.",
+          description: "Gagal,Coba lagi",
         });
       }
     });
@@ -337,22 +183,22 @@ function DeleteConfirmationDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete resume?</DialogTitle>
+          <DialogTitle>Hapus CV?</DialogTitle>
           <DialogDescription>
-            This will permanently delete this resume. This action cannot be
-            undone.
+            Aksi ini akan menghapus cv secara permanen dan tidak bisa di
+            kembalikan
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <LoadingButton
+          <Button
             variant="destructive"
             onClick={handleDelete}
-            loading={isPending}
+            disabled={isPending}
           >
-            Delete
-          </LoadingButton>
+            {isPending ? "Menghapus..." : "Hapus"}
+          </Button>
           <Button variant="secondary" onClick={() => onOpenChange(false)}>
-            Cancel
+            Batal
           </Button>
         </DialogFooter>
       </DialogContent>
