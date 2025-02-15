@@ -98,40 +98,34 @@ body {
   margin: 0.6cm;
 } */
  /* ✅ Pastikan hanya resume yang muncul saat print */
-@media print {
+ @media print {
   body * {
-    visibility: hidden; /* Sembunyikan semua elemen */
+    visibility: hidden;
   }
   #resumePreviewContent, #resumePreviewContent * {
-    visibility: visible; /* Hanya resume yang tampil */
+    visibility: visible;
   }
 
-  /* ✅ Perbaiki skala agar tidak mengecil/terpotong */
+  /* ✅ Ukuran otomatis agar resume tetap proporsional */
   #resumePreviewContent {
-    transform: scale(1);
+    width: 794px; /* Lebar A4 dalam pixel */
+    height: 1123px; /* Tinggi A4 dalam pixel */
+    transform: scale(3); /* Perbesar biar tidak kecil */
     transform-origin: top left;
-    width: 100%;
-    padding: 0;
+    padding: 1cm;
   }
 
-  /* ✅ Atur ukuran font agar tetap terbaca */
+  /* ✅ Pastikan teks tetap terbaca */
   #resumePreviewContent {
-    font-size: 12px !important; 
+    font-size: 14px !important; 
   }
 }
 
-/* ✅ Atur ukuran kertas agar sesuai A4 */
 @page {
-  size: A4 portrait; /* Gunakan mode portrait */
-  margin: auto; /* Biarkan browser yang mengatur margin */
+  size: A4;
+  margin: 0.6cm;
 }
 
-/* ✅ Atur font agar tetap konsisten */
 #resumePreviewContent {
   font-family: "Inter", sans-serif;
-}
-
-/* ✅ Hindari visibility issue pada container */
-#resume-container, #resume-container * {
-  visibility: visible;
 }
