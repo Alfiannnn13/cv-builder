@@ -78,13 +78,33 @@ body {
 }
 
 
-/* ✅ Pastikan hanya resume yang muncul saat print */
+/* @media print {
+  #resumePreviewContent {
+    zoom: 1 !important;
+    padding: 0;
+  }
+}
+
+#resumePreviewContent {
+  font-family: Inter;
+}
+
+#resume-container, #resume-container * {
+  visibility: visible;
+}
+
+@page {
+  size: A4;
+  margin: 0.6cm;
+} */
+ /* ✅ Pastikan hanya resume yang muncul saat print */
 @media print {
   body * {
     visibility: hidden; /* Sembunyikan semua elemen */
   }
   #resumePreviewContent, #resumePreviewContent * {
     visibility: visible; /* Hanya resume yang tampil */
+    zoom: 1 !important;
   }
 
   /* ✅ Perbaiki skala agar tidak mengecil/terpotong */
@@ -104,7 +124,7 @@ body {
 /* ✅ Atur ukuran kertas agar sesuai A4 */
 @page {
   size: A4 portrait; /* Gunakan mode portrait */
-  margin: auto; /* Biarkan browser yang mengatur margin */
+  margin: 0.6cm; /* Biarkan browser yang mengatur margin */
 }
 
 /* ✅ Atur font agar tetap konsisten */
