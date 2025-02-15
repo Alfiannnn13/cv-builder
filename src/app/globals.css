@@ -104,7 +104,6 @@ body {
   }
   #resumePreviewContent, #resumePreviewContent * {
     visibility: visible; /* Hanya resume yang tampil */
-    zoom: 1 !important;
   }
 
   /* ✅ Perbaiki skala agar tidak mengecil/terpotong */
@@ -124,7 +123,7 @@ body {
 /* ✅ Atur ukuran kertas agar sesuai A4 */
 @page {
   size: A4 portrait; /* Gunakan mode portrait */
-  margin: 0.6cm; /* Biarkan browser yang mengatur margin */
+  margin: auto; /* Biarkan browser yang mengatur margin */
 }
 
 /* ✅ Atur font agar tetap konsisten */
