@@ -89,6 +89,10 @@ body {
   font-family: Inter;
 }
 
+#resume-container, #resume-container * {
+  visibility: visible;
+}
+
 @page {
   size: A4;
   margin: 0.6cm;

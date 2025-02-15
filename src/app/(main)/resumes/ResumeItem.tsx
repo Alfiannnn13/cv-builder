@@ -11,10 +11,10 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { ResumeServerData } from "@/lib/types";
 import { mapToResumeValues } from "@/lib/utils";
-import { format } from "date-fns";
+import { formatDate } from "date-fns";
 import { MoreVertical, Printer, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useRef, useState, useTransition } from "react";
+import { RefObject, useRef, useState, useTransition } from "react";
 import { deleteResume } from "./action";
 import {
   Dialog,
@@ -32,17 +32,13 @@ interface ResumeItemProps {
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
   const contentRef = useRef<HTMLDivElement>(null!);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const handlePrint = () => {
-    if (iframeRef.current && contentRef.current) {
-      const iframeDoc = iframeRef.current.contentWindow?.document;
-      if (iframeDoc) {
-        iframeDoc.body.innerHTML = contentRef.current.innerHTML;
-        iframeRef.current.contentWindow?.print();
-      }
-    }
-  };
+  const reactToPrintFn = useReactToPrint({
+    contentRef,
+    documentTitle: resume.title || "CV",
+    
+    
+  });
 
   const wasUpdated = resume.updateAt !== resume.createdAt;
 
@@ -60,8 +56,8 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             <p className="line-clamp-2 text-sm">{resume.description}</p>
           )}
           <p className="text-xs text-muted-foreground">
-            {wasUpdated ? "diperbarui" : "dibuat"} tanggal {" "}
-            {format(new Date(resume.updateAt), "MMM d yyyy h:mm a")}
+            {wasUpdated ? "diperbarui" : "dibuat"} tanggal{" "}
+            {formatDate(resume.updateAt, "MMM d yyyy h:mm a")}
           </p>
         </Link>
         <Link
@@ -76,8 +72,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-white to-transparent"></div>
         </Link>
       </div>
-      <MoreMenu resumeId={resume.id} onPrintClick={handlePrint} />
-      <iframe ref={iframeRef} style={{ display: "none" }}></iframe>
+      <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
     </div>
   );
 }
@@ -113,6 +108,7 @@ function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
             className="flex items-center gap-2"
             onClick={onPrintClick}
           >
+            {" "}
             <Printer className="size-4" /> Download
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -138,6 +134,7 @@ function DeleteConfirmationDialog({
   onOpenChange,
 }: DeleteConfirmationDialogProps) {
   const { toast } = useToast();
+
   const [isPending, startTransition] = useTransition();
 
   async function handleDelete() {
@@ -149,7 +146,7 @@ function DeleteConfirmationDialog({
         console.error(error);
         toast({
           variant: "destructive",
-          description: "Gagal, Coba lagi",
+          description: "Gagal,Coba lagi",
         });
       }
     });
@@ -161,7 +158,8 @@ function DeleteConfirmationDialog({
         <DialogHeader>
           <DialogTitle>Hapus CV?</DialogTitle>
           <DialogDescription>
-            Aksi ini akan menghapus CV secara permanen dan tidak bisa dikembalikan.
+            Aksi ini akan menghapus cv secara permanen dan tidak bisa di
+            kembalikan
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
