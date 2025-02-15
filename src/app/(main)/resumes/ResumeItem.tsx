@@ -11,10 +11,10 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { ResumeServerData } from "@/lib/types";
 import { mapToResumeValues } from "@/lib/utils";
-import { formatDate } from "date-fns";
-import { MoreVertical, Printer, Trash2 } from "lucide-react";
+import { format } from "date-fns";
+import { MoreVertical, FileDown, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { RefObject, useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { deleteResume } from "./action";
 import {
   Dialog,
@@ -24,66 +24,47 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-
-import { useReactToPrint } from "react-to-print";
-
-const handleDownloadPDF = async (contentRef: RefObject<HTMLDivElement>) => {
-  if (!contentRef.current) return;
-
-  try {
-    const canvas = await html2canvas(contentRef.current, { scale: 2 });
-    const imgData = canvas.toDataURL("image/png");
-
-    const pdf = new jsPDF("p", "mm", "a4");
-    const imgWidth = 210;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-    pdf.save("resume.pdf");
-  } catch (error) {
-    console.error("Gagal membuat PDF:", error);
-  }
-};
+import jsPDF from "jspdf";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
-  const contentRef = useRef<HTMLDivElement>(null!);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  const reactToPrintFn = useReactToPrint({
-    contentRef,
-    documentTitle: resume.title || "CV",
-  });
+  // Fungsi untuk download PDF
+  const downloadPDF = async () => {
+    if (!contentRef.current) return;
+
+    const canvas = await html2canvas(contentRef.current, {
+      scale: 2, // Meningkatkan resolusi output
+      useCORS: true,
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4"); // Ukuran A4
+    const imgWidth = 210; // Lebar PDF dalam mm
+    const imgHeight = (canvas.height * imgWidth) / canvas.width; // Menyesuaikan tinggi gambar
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    pdf.save(`${resume.title || "CV"}.pdf`);
+  };
 
   const wasUpdated = resume.updateAt !== resume.createdAt;
 
   return (
     <div className="group relative rounded-lg border border-transparent bg-secondary transition-colors hover:border-border">
       <div className="space-y-3">
-        <Link
-          href={`/editor?resumeId=${resume.id}`}
-          className="inline-block w-full text-center"
-        >
-          <p className="line-clamp-1 font-semibold">
-            {resume.title || "No Title"}
-          </p>
-          {resume.description && (
-            <p className="line-clamp-2 text-sm">{resume.description}</p>
-          )}
+        <Link href={`/editor?resumeId=${resume.id}`} className="inline-block w-full text-center">
+          <p className="line-clamp-1 font-semibold">{resume.title || "No Title"}</p>
+          {resume.description && <p className="line-clamp-2 text-sm">{resume.description}</p>}
           <p className="text-xs text-muted-foreground">
-            {wasUpdated ? "diperbarui" : "dibuat"} tanggal{" "}
-            {formatDate(resume.updateAt, "MMM d yyyy h:mm a")}
+            {wasUpdated ? "Diperbarui" : "Dibuat"} tanggal {format(resume.updateAt, "MMM d yyyy h:mm a")}
           </p>
         </Link>
-        <Link
-          href={`/editor?resumeId=${resume.id}`}
-          className="relative inline-block w-full"
-        >
+        <Link href={`/editor?resumeId=${resume.id}`} className="relative inline-block w-full">
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
             contentRef={contentRef}
@@ -92,18 +73,10 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-white to-transparent"></div>
         </Link>
       </div>
-      <MoreMenu
-        resumeId={resume.id}
-        onDownloadClick={() => handleDownloadPDF(contentRef)}
-      />
+      <MoreMenu resumeId={resume.id} onDownloadClick={downloadPDF} />
     </div>
   );
 }
-
-// interface MoreMenuProps {
-//   resumeId: string;
-//   onPrintClick: () => void;
-// }
 
 interface MoreMenuProps {
   resumeId: string;
@@ -117,34 +90,20 @@ function MoreMenu({ resumeId, onDownloadClick }: MoreMenuProps) {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-0.5 top-0.5"
-          >
+          <Button variant="ghost" size="icon" className="absolute right-0.5 top-0.5">
             <MoreVertical className="size-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem
-            className="flex items-center gap-2"
-            onClick={() => setShowDeleteConfirmation(true)}
-          >
+          <DropdownMenuItem className="flex items-center gap-2" onClick={() => setShowDeleteConfirmation(true)}>
             <Trash2 className="size-4" /> Hapus
           </DropdownMenuItem>
-          <DropdownMenuItem
-            className="flex items-center gap-2"
-            onClick={onDownloadClick}
-          >
-            <Printer className="size-4" /> Download
+          <DropdownMenuItem className="flex items-center gap-2" onClick={onDownloadClick}>
+            <FileDown className="size-4" /> Download
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteConfirmationDialog
-        resumeId={resumeId}
-        open={showDeleteConfirmation}
-        onOpenChange={setShowDeleteConfirmation}
-      />
+      <DeleteConfirmationDialog resumeId={resumeId} open={showDeleteConfirmation} onOpenChange={setShowDeleteConfirmation} />
     </>
   );
 }
@@ -155,13 +114,8 @@ interface DeleteConfirmationDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-function DeleteConfirmationDialog({
-  resumeId,
-  open,
-  onOpenChange,
-}: DeleteConfirmationDialogProps) {
+function DeleteConfirmationDialog({ resumeId, open, onOpenChange }: DeleteConfirmationDialogProps) {
   const { toast } = useToast();
-
   const [isPending, startTransition] = useTransition();
 
   async function handleDelete() {
@@ -173,7 +127,7 @@ function DeleteConfirmationDialog({
         console.error(error);
         toast({
           variant: "destructive",
-          description: "Gagal,Coba lagi",
+          description: "Gagal, coba lagi",
         });
       }
     });
@@ -184,22 +138,13 @@ function DeleteConfirmationDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Hapus CV?</DialogTitle>
-          <DialogDescription>
-            Aksi ini akan menghapus cv secara permanen dan tidak bisa di
-            kembalikan
-          </DialogDescription>
+          <DialogDescription>Aksi ini akan menghapus CV secara permanen dan tidak bisa dikembalikan</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button
-            variant="destructive"
-            onClick={handleDelete}
-            disabled={isPending}
-          >
+          <Button variant="destructive" onClick={handleDelete} disabled={isPending}>
             {isPending ? "Menghapus..." : "Hapus"}
           </Button>
-          <Button variant="secondary" onClick={() => onOpenChange(false)}>
-            Batal
-          </Button>
+          <Button variant="secondary" onClick={() => onOpenChange(false)}>Batal</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
