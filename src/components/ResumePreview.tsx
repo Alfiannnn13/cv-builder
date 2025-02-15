@@ -25,25 +25,17 @@ export default function ResumePreview({
 
   return (
     <div
-      // className={cn(
-      //   "aspect-[210/297] h-fit w-full bg-white text-black",
-      //   className,
-      // )}
       className={cn(
-  "aspect-[210/297] h-fit w-full max-w-[794px] bg-white text-black",
-  className
-)}
-
+        "aspect-[210/297] h-fit w-full bg-white text-black",
+        className,
+      )}
       ref={containerRef}
     >
       <div
-        // className={cn("space-y-6 p-6", !width && "invisible")}
-        className={cn("space-y-6 p-6 transition-opacity", !width ? "opacity-0" : "opacity-100")}
-
+        className={cn("space-y-6 p-6", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
-       
         ref={contentRef}
         id="resumePreviewContent"
       >
