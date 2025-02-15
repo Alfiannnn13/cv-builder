@@ -32,11 +32,17 @@ interface ResumeItemProps {
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
   const contentRef = useRef<HTMLDivElement>(null!);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const reactToPrintFn = useReactToPrint({
-    contentRef,
-    documentTitle: resume.title || "CV",
-  });
+  const handlePrint = () => {
+    if (iframeRef.current && contentRef.current) {
+      const iframeDoc = iframeRef.current.contentWindow?.document;
+      if (iframeDoc) {
+        iframeDoc.body.innerHTML = contentRef.current.innerHTML;
+        iframeRef.current.contentWindow?.print();
+      }
+    }
+  };
 
   const wasUpdated = resume.updateAt !== resume.createdAt;
 
@@ -70,7 +76,8 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-white to-transparent"></div>
         </Link>
       </div>
-      <MoreMenu resumeId={resume.id} onPrintClick={reactToPrintFn} />
+      <MoreMenu resumeId={resume.id} onPrintClick={handlePrint} />
+      <iframe ref={iframeRef} style={{ display: "none" }}></iframe>
     </div>
   );
 }
