@@ -78,7 +78,7 @@ body {
 }
 
 
-/* @media print {
+@media print {
   #resumePreviewContent {
     zoom: 1 !important;
     padding: 0;
@@ -96,36 +96,4 @@ body {
 @page {
   size: A4;
   margin: 0.6cm;
-} */
- /* ✅ Pastikan hanya resume yang muncul saat print */
- @media print {
-  body * {
-    visibility: hidden;
-  }
-  #resumePreviewContent, #resumePreviewContent * {
-    visibility: visible;
-  }
-
-  /* ✅ Ukuran otomatis agar resume tetap proporsional */
-  #resumePreviewContent {
-    width: 794px; /* Lebar A4 dalam pixel */
-    height: 1123px; /* Tinggi A4 dalam pixel */
-    transform: scale(3); /* Perbesar biar tidak kecil */
-    transform-origin: top left;
-    padding: 1cm;
-  }
-
-  /* ✅ Pastikan teks tetap terbaca */
-  #resumePreviewContent {
-    font-size: 14px !important; 
-  }
-}
-
-@page {
-  size: A4;
-  margin: 0.6cm;
-}
-
-#resumePreviewContent {
-  font-family: "Inter", sans-serif;
 }
